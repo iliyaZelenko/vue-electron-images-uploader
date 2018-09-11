@@ -1,0 +1,53 @@
+{
+  "name": "vue-electron-images-uploader",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "test:unit": "vue-cli-service test:unit",
+    "test:e2e": "vue-cli-service test:e2e",
+    "build:electron": "vue-cli-service build:electron",
+    "serve:electron": "vue-cli-service serve:electron",
+    "postinstall": "electron-builder install-app-deps"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.0.0",
+    "auto-launch": "^5.0.5",
+    "axios": "^0.18.0",
+    "cropperjs": "^1.4.1",
+    "electron-positioner": "^4.1.0",
+    "mousetrap": "^1.6.2",
+    "vue": "^2.5.17",
+    "vue-plugin-axios": "^1.0.12",
+    "vue-router": "^3.0.1",
+    "vuetify": "^1.2.2",
+    "vuex": "^3.0.1"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.0.0",
+    "@vue/cli-plugin-e2e-cypress": "^3.0.0",
+    "@vue/cli-plugin-eslint": "^3.0.0",
+    "@vue/cli-plugin-unit-jest": "^3.0.0",
+    "@vue/cli-service": "^3.0.0",
+    "@vue/eslint-config-standard": "^3.0.1",
+    "@vue/test-utils": "^1.0.0-beta.20",
+    "babel-core": "7.0.0-bridge.0",
+    "babel-jest": "^23.0.1",
+    "electron": "^2.0.2",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.2",
+    "vue-cli-plugin-electron-builder": "^1.0.0-rc.2",
+    "vue-template-compiler": "^2.5.17"
+  },
+  "main": "dist_electron/bundled/background.js",
+  "build": {
+    "appId": "com.vue.electron.builder",
+    "productName": "Vue + Electron: images uploader",
+    "provider": "github",
+    "win": {
+      "publish": ["github", "bintray"]
+    }
+  }
+}
