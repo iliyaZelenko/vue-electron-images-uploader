@@ -4,6 +4,7 @@ import { format as formatUrl } from 'url'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import Positioner from 'electron-positioner'
 import AutoLaunch from 'auto-launch'
+import Updator from '../Updater'
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
 let window, tray, trayWindow
@@ -15,6 +16,8 @@ export default function (mainWindow) {
   windowEvents()
   createTray()
   shortcut()
+  addMenu()
+  Updator(window)
 }
 
 async function autolaunch () {
@@ -48,6 +51,28 @@ function shortcut () {
   // electronLocalshortcut.register(window, 'Ctrl+C', () => {
   //   console.log('You pressed ctrl & C')
   // })
+}
+
+function addMenu () {
+  const template = [
+    {
+      label: 'Edit',
+      submenu: [
+        { role: 'undo' },
+        { role: 'redo' },
+        { type: 'separator' },
+        { role: 'cut' },
+        { role: 'copy' },
+        { role: 'paste' },
+        { role: 'pasteandmatchstyle' },
+        { role: 'delete' },
+        { role: 'selectall' }
+      ]
+    }
+  ]
+
+  const menu = Menu.buildFromTemplate(template)
+  Menu.setApplicationMenu(menu)
 }
 
 function windowEvents () {
@@ -111,7 +136,7 @@ function createTray () {
       // Load the index.html when not in development
       window.loadURL(
         formatUrl({
-          pathname: path.join(__dirname, 'index.html'), // #/file-tray
+          pathname: path.join(__dirname, 'index.html#/file-tray'), // #/file-tray
           protocol: 'file',
           slashes: true
         })

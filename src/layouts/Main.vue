@@ -34,3 +34,14 @@
       &.router-link-exact-active
         color #42b983
 </style>
+
+<script>
+export default {
+  created () {
+    console.log(123)
+    this.$electron.ipcRenderer.on('updater-message', (event, message) => {
+      console.log(event, message)
+    })
+  }
+}
+</script>
