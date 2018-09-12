@@ -37,7 +37,8 @@ function shortcut () {
   //   // window.webContents.send('ping', 'whoooooooh1!')
   // })
 
-  globalShortcut.register('Alt+PrintScreen', () => {
+  // 'Alt+PrintScreen'
+  globalShortcut.register('CommandOrControl+Q', () => {
     trayWindow.webContents.send('print-screen')
     showTrayWindow()
   })

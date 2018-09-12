@@ -3,6 +3,13 @@
     <!--<v-navigation-drawer app />-->
     <!--<v-toolbar app />-->
     <v-content>
+      <v-alert
+        :value="updateStatus"
+        :type="alertType"
+      >
+        {{ alertText }}
+      </v-alert>
+
       <v-container fluid>
         <div id="nav">
           <router-link to="/">
@@ -21,6 +28,10 @@
     </v-content>
     <v-footer>
       <span class="ml-3">Author: Ilya Zelenko</span>
+      <v-spacer/>
+
+      {{ releaseName ? `Realease: ${releaseName} (${releaseAt})` : '' }}
+
     </v-footer>
   </v-app>
 </template>
@@ -37,10 +48,59 @@
 
 <script>
 export default {
+  data: () => ({
+    updateStatus: null,
+    alertType: null,
+    alertText: null,
+    releaseName: null,
+    releaseDate: null
+  }),
+  computed: {
+    releaseAt () {
+      return new Date(this.releaseDate).toLocaleDateString()
+    }
+  },
   created () {
-    console.log(123)
-    this.$electron.ipcRenderer.on('updater-message', (event, message) => {
-      console.log(event, message)
+    // this.$electron.remote.dialog.showMessageBox({
+    //   type: 'question',
+    //   buttons: ['Install and Relaunch', 'Later'],
+    //   defaultId: 0,
+    //   message: 'A new version of has been downloaded',
+    //   detail: 'Привте'
+    // }, response => {
+    //   console.log(response)
+    // })
+
+    // this.$electron.remote.dialog.showOpenDialog(
+    //   this.$electron.remote.getCurrentWindow(),
+    //   {
+    //     defaultPath: 'c:/',
+    //     filters: [
+    //       { name: 'All Files', extensions: ['*'] },
+    //       { name: 'Images', extensions: ['jpg13232', 'png', 'gif'] },
+    //       { name: 'Movies', extensions: ['mkv', 'avi', 'mp4'] }
+    //     ],
+    //     properties: ['openFile']
+    //   }
+    // )
+
+    const alerts = {
+      notAvailable: { type: 'info', msg: 'Update not available.' },
+      available: { type: 'success', msg: 'Update available.' }
+    }
+    this.$electron.ipcRenderer.on('updater-message', (event, { status, info }) => {
+      const { type: alertType, msg: alertText } = alerts[status]
+
+      this.alertType = alertType
+      this.alertText = alertText
+      this.updateStatus = status
+
+      if (status === 'notAvailable') {
+        this.releaseName = info.releaseName
+        this.releaseDate = info.releaseDate
+      }
+
+      console.log(status, info)
     })
   }
 }

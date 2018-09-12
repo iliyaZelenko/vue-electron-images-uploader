@@ -1,8 +1,8 @@
 <template>
   <div>
     <v-alert
-      type="info"
       :value="!images.length"
+      type="info"
     >
       Here you will see the downloaded pictures.
     </v-alert>
