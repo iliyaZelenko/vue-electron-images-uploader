@@ -146,6 +146,10 @@ export default {
   },
   mounted () {
     const insertFromClipboard = () => {
+      if (this.uploaded) {
+        return
+      }
+
       const file = clipboard.readImage()
       const fileExists = !!file.toDataURL().split(',')[1]
 

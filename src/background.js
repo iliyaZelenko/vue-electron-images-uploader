@@ -59,7 +59,7 @@ function createMainWindow () {
         slashes: true
       })
     )
-    // dev on prod
+    // TODO delete (dev on prod)
     window.webContents.openDevTools()
   }
 

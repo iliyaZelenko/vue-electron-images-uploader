@@ -1,29 +1,5 @@
 <template>
   <div>
-    <!--Превью-->
-    <!--<v-layout-->
-      <!--v-if="preview || previewDefault"-->
-      <!--style="margin-bottom: 20px;"-->
-      <!--justify-center-->
-      <!--align-center-->
-    <!--&gt;-->
-      <!--<img-->
-        <!--:src="preview || previewDefault"-->
-        <!--style="max-width: 150px;"-->
-        <!--class="IZ-avatar-uploader__preview"-->
-      <!--&gt;-->
-      <!--<img-->
-        <!--:src="preview || previewDefault"-->
-        <!--style="max-width: 100px;"-->
-        <!--class="IZ-avatar-uploader__preview"-->
-      <!--&gt;-->
-      <!--<img-->
-        <!--:src="preview || previewDefault"-->
-        <!--style="max-width: 50px;"-->
-        <!--class="IZ-avatar-uploader__preview IZ-avatar-uploader__preview-circle"-->
-      <!--&gt;-->
-    <!--</v-layout>-->
-    <!--Редактор-->
     <div
       v-show="image.preview"
       style="display: flex; justify-content: center;"

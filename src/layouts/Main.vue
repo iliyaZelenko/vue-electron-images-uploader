@@ -6,8 +6,19 @@
       <v-alert
         :value="updateStatus"
         :type="alertType"
+        class="mt-0"
       >
         {{ alertText }}
+
+        <template v-if="progress">
+          <v-progress-linear
+            :value="progress.percent"
+            color="success"
+            height="15"
+          />
+          Speed: {{ formatBytes(progress.bytesPerSecond) }} per second <br>
+          {{ formatBytes(progress.transferred) }} / {{ formatBytes(progress.total) }}
+        </template>
       </v-alert>
 
       <v-container fluid>
@@ -16,7 +27,7 @@
             Home
           </router-link> |
           <router-link to="/file">
-            File
+            Files
           </router-link>
         </div>
 
@@ -27,7 +38,12 @@
       </v-container>
     </v-content>
     <v-footer>
-      <span class="ml-3">Author: Ilya Zelenko</span>
+      <span class="ml-3">
+        Author:
+        <a href="https://github.com/iliyaZelenko">
+          Ilya Zelenko
+        </a>
+      </span>
       <v-spacer/>
 
       {{ releaseName ? `Realease: ${releaseName} (${releaseAt})` : '' }}
@@ -47,13 +63,16 @@
 </style>
 
 <script>
+import { formatBytes } from '@/helpers.js'
+
 export default {
   data: () => ({
     updateStatus: null,
     alertType: null,
     alertText: null,
     releaseName: null,
-    releaseDate: null
+    releaseDate: null,
+    progress: null
   }),
   computed: {
     releaseAt () {
@@ -86,7 +105,9 @@ export default {
 
     const alerts = {
       notAvailable: { type: 'info', msg: 'Update not available.' },
-      available: { type: 'success', msg: 'Update available.' }
+      available: { type: 'success', msg: 'Update available.' },
+      download: { type: 'success', msg: 'Download update.' },
+      downloadDone: { type: 'success', msg: 'Updates downloaded. It will be installed the next time you restart the application.' }
     }
     this.$electron.ipcRenderer.on('updater-message', (event, { status, info }) => {
       const { type: alertType, msg: alertText } = alerts[status]
@@ -100,8 +121,19 @@ export default {
         this.releaseDate = info.releaseDate
       }
 
+      if (this.progress) {
+        this.progress = null
+      }
       console.log(status, info)
     })
+
+    this.$electron.ipcRenderer.on('updater-progress', (event, progressObj) => {
+      this.updateStatus = 'progress'
+      this.progress = progressObj
+    })
+  },
+  methods: {
+    formatBytes
   }
 }
 </script>
