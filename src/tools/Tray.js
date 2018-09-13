@@ -17,8 +17,6 @@ export default {
     this.tray.setContextMenu(getTrayMenu())
     this.tray.on('click', this.toggleWindow)
 
-    this.tray.on('click', this.toggleWindow)
-
     ipcMain.on('tray-close', (event, arg) => {
       this.trayWindow.hide()
     })

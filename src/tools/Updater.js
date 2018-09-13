@@ -19,6 +19,7 @@ export default function (globalWindow) {
     autoUpdater.updateConfigPath = path.join(rootFolder, './app-update.yml')
   }
 
+  autoUpdater.autoDownload = false // скачивать вручную
   autoUpdater.logger = log
   autoUpdater.logger.transports.file.level = 'info'
   log.info('App starting...')
@@ -51,8 +52,8 @@ export default function (globalWindow) {
     })
   })
 
-  autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => {
-    let message = app.getName() + ' ' + releaseName + ' is now available. It will be installed the next time you restart the application.'
+  autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName, releaseDate) => {
+    let message = `${app.getName()} ${releaseName || ''} + ' is now available. It will be installed the next time you restart the application.`
     if (releaseNotes) {
       const splitNotes = releaseNotes.split(/[^\r]\n/)
       message += '\n\nRelease notes:\n'
@@ -60,6 +61,8 @@ export default function (globalWindow) {
         message += notes + '\n\n'
       })
     }
+
+    console.log(message, { releaseNotes, releaseName, releaseDate })
 
     // dialog.showMessageBox({
     //   title: 'Install Updates',
@@ -71,18 +74,26 @@ export default function (globalWindow) {
     // })
 
     // Ask user to update the app
+    // dialog.showMessageBox({
+    //   type: 'question',
+    //   buttons: ['Install and Relaunch', 'Later'],
+    //   defaultId: 0,
+    //   message: 'A new version of ' + app.getName() + ' has been downloaded',
+    //   detail: message
+    // }, response => {
+    //   if (response === 0) {
+    //     setImmediate(() => autoUpdater.quitAndInstall())
+    //   } else if (response === 1) {
+    //     sendStatusToWindow('downloadDone')
+    //   }
+    // })
+
+    // TODO убрать sendStatusToWindow
     dialog.showMessageBox({
-      type: 'question',
-      buttons: ['Install and Relaunch', 'Later'],
-      defaultId: 0,
-      message: 'A new version of ' + app.getName() + ' has been downloaded',
-      detail: message
-    }, response => {
-      if (response === 0) {
-        setImmediate(() => autoUpdater.quitAndInstall())
-      } else if (response === 1) {
-        sendStatusToWindow('downloadDone')
-      }
+      title: 'A new version of ' + app.getName() + ' has been downloaded',
+      message: 'Updates downloaded, application will be quit for update...'
+    }, () => {
+      setImmediate(() => autoUpdater.quitAndInstall())
     })
   })
 

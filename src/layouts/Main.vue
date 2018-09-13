@@ -13,7 +13,7 @@
         <template v-if="progress">
           <v-progress-linear
             :value="progress.percent"
-            color="success"
+            color="primary"
             height="15"
           />
           Speed: {{ formatBytes(progress.bytesPerSecond) }} per second <br>
@@ -46,7 +46,7 @@
       </span>
       <v-spacer/>
 
-      {{ releaseName ? `Realease: ${releaseName} (${releaseAt})` : '' }}
+      {{ releaseName ? `Realease: ${releaseName}` + (releaseAt ? `(${releaseAt})`: '') : '' }}
 
     </v-footer>
   </v-app>
@@ -117,7 +117,7 @@ export default {
       this.updateStatus = status
 
       if (status === 'notAvailable') {
-        this.releaseName = info.releaseName
+        this.releaseName = info.releaseName // getVersion
         this.releaseDate = info.releaseDate
       }
 
