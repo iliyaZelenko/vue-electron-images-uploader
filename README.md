@@ -1,12 +1,12 @@
 # Images Uploader
-
-<img src="https://i.imgur.com/jNWx1Us.png" width="240" height="210">
-<img src="https://i.imgur.com/CWb72F5.png" width="240" height="210">
-<img src="https://i.imgur.com/dq1EnFB.png" width="240" height="210">
-<img src="https://i.imgur.com/JyW6TO6.png" width="240" height="210">
-<img src="https://i.imgur.com/11kHBgR.png" width="240" height="210">
-<img src="https://i.imgur.com/kLXOxhf.png" width="240" height="210">
-
+<p align="center">
+  <img src="https://i.imgur.com/jNWx1Us.png" width="240" height="210" style="float: left">
+  <img src="https://i.imgur.com/CWb72F5.png" width="240" height="210" style="float: left">
+  <img src="https://i.imgur.com/dq1EnFB.png" width="240" height="210">
+  <img src="https://i.imgur.com/JyW6TO6.png" width="240" height="210">
+  <img src="https://i.imgur.com/11kHBgR.png" width="240" height="210">
+  <img src="https://i.imgur.com/kLXOxhf.png" width="240" height="210">
+</p>
 
 ## Features
 - Selecting pictures from Explorer or Clipboard
