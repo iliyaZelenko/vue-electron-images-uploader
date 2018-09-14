@@ -20,18 +20,6 @@ if (isDevelopment) {
 // global reference to mainWindow (necessary to prevent window from being garbage collected)
 let mainWindow
 
-// const menubar = require('menubar')
-//
-// const mb = menubar({
-//   dir: __static,
-//   index: 'https://www.google.com/' // file:// + opts.dir + index.html
-// })
-
-// mb.on('ready', function ready () {
-//   console.log('app is ready')
-//   // your app code here
-// })
-
 // Standard scheme must be registered before the app is ready
 protocol.registerStandardSchemes(['app'], { secure: true })
 function createMainWindow () {
@@ -59,8 +47,8 @@ function createMainWindow () {
         slashes: true
       })
     )
-    // TODO delete (dev on prod)
-    window.webContents.openDevTools()
+
+    // window.webContents.openDevTools()
   }
 
   window.on('closed', () => {
@@ -101,8 +89,6 @@ app.on('ready', async () => {
     await installVueDevtools()
   }
   mainWindow = createMainWindow()
-  // 'http://icons.iconarchive.com/icons/umut-pulat/tulliana-2/128/system-tray-icon.png'
-  // console.log(path.join(__dirname, 'images', 'logo.png')) path.join(__dirname, '../assets', 'logo.png')
 
   readyCallback(mainWindow)
 })
@@ -110,16 +96,3 @@ app.on('ready', async () => {
 app.on('will-quit', function () {
   globalShortcut.unregisterAll()
 })
-
-// process.argv.forEach(onOpen)
-// app.on('open-file', onOpen)
-// app.on('open-url', onOpen)
-//
-// function onOpen () {
-//   app.setName('123')
-//   // setInterval(app.setName, 1000, '123')
-//   setInterval(() => {
-//     app.setName('123')
-//   }, 1000)
-//   // app.moveToApplicationsFolder()
-// }

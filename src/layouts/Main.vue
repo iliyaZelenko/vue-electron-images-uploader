@@ -46,7 +46,7 @@
       </span>
       <v-spacer/>
 
-      {{ releaseName ? `Realease: ${releaseName}` + (releaseAt ? `(${releaseAt})`: '') : '' }}
+      {{ releaseName ? `Realease: ${releaseName} ` + (releaseAt ? `(${releaseAt})`: '') : '' }}
 
     </v-footer>
   </v-app>

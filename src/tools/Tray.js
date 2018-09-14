@@ -5,12 +5,13 @@ import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import Positioner from 'electron-positioner'
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
-let trayObj
+let window, trayObj
 
 export default {
   trayWindow: null,
   tray: null,
-  init (window) {
+  init (globalWindow) {
+    window = globalWindow
     trayObj = this
     this.tray = new Tray(path.join(__static, 'tray.png'))
     this.tray.setToolTip('This is my application.')
@@ -68,7 +69,7 @@ export default {
       //     slashes: true
       //   })
       // )
-      this.trayWindow.webContents.openDevTools()
+      // this.trayWindow.webContents.openDevTools()
     }
     // trayWindow.loadURL(`file://${path.join('tray.html')}`)
     // Hide the window when it loses focus

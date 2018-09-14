@@ -1,6 +1,6 @@
 {
   "name": "vue-electron-images-uploader",
-  "version": "0.1.5",
+  "version": "0.1.7",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -8,10 +8,10 @@
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
-    "build:electron": "vue-cli-service build:electron -p always",
+    "build:electron": "vue-cli-service build:electron --win",
     "serve:electron": "vue-cli-service serve:electron",
     "postinstall": "electron-builder install-app-deps",
-    "release": "build -p always"
+    "publish:electron": "vue-cli-service build:electron --win -p always"
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
@@ -47,13 +47,6 @@
   "main": "dist_electron/bundled/background.js",
   "build": {
     "appId": "com.github.iliyaZelenko.vue-electron-images-uploader",
-    "productName": "Vue + Electron: images uploader",
-    "publish": [
-      {
-        "provider": "github",
-        "owner": "iliyaZelenko",
-        "repo": "vue-electron-images-uploader"
-      }
-    ]
+    "productName": "Vue + Electron: images uploader"
   }
 }

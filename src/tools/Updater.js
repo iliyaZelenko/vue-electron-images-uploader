@@ -3,7 +3,7 @@ import { autoUpdater } from 'electron-updater'
 import log from 'electron-log'
 import * as path from 'path'
 
-let window
+let window, checkForUpdatesInterval
 const isDev = process.env.NODE_ENV !== 'production'
 // console.log(rootFolder)
 // console.log(path.resolve(__static, '../'))
@@ -39,6 +39,8 @@ export default function (globalWindow) {
     // sendStatusToWindow('error', err)
   })
   autoUpdater.on('update-available', () => {
+    clearInterval(checkForUpdatesInterval)
+
     dialog.showMessageBox({
       type: 'info',
       title: 'Found Updates',
@@ -64,33 +66,10 @@ export default function (globalWindow) {
 
     console.log(message, { releaseNotes, releaseName, releaseDate })
 
-    // dialog.showMessageBox({
-    //   title: 'Install Updates',
-    //   message: 'Updates downloaded, application will be quit for update...'
-    // }, response => {
-    //   if (response === 0) {
-    //     setImmediate(() => autoUpdater.quitAndInstall())
-    //   }
-    // })
-
-    // Ask user to update the app
-    // dialog.showMessageBox({
-    //   type: 'question',
-    //   buttons: ['Install and Relaunch', 'Later'],
-    //   defaultId: 0,
-    //   message: 'A new version of ' + app.getName() + ' has been downloaded',
-    //   detail: message
-    // }, response => {
-    //   if (response === 0) {
-    //     setImmediate(() => autoUpdater.quitAndInstall())
-    //   } else if (response === 1) {
-    //     sendStatusToWindow('downloadDone')
-    //   }
-    // })
-
     // TODO убрать sendStatusToWindow
     dialog.showMessageBox({
-      title: 'A new version of ' + app.getName() + ' has been downloaded',
+      // ' + app.getName() + '
+      title: 'A new version has been downloaded',
       message: 'Updates downloaded, application will be quit for update...'
     }, () => {
       setImmediate(() => autoUpdater.quitAndInstall())
@@ -110,5 +89,9 @@ export default function (globalWindow) {
     window.webContents.send('updater-message', { status, info })
   }
 
-  autoUpdater.checkForUpdates() // checkForUpdatesAndNotify()
+  // check every minute
+  checkForUpdatesInterval = setInterval(() => {
+    autoUpdater.checkForUpdates() // checkForUpdatesAndNotify()
+  }, 60 * 1000)
+  autoUpdater.checkForUpdates()
 }
