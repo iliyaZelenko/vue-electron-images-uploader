@@ -11,11 +11,11 @@
 ## Features
 - Selecting pictures from Explorer or Clipboard
 - Editing before downloading
-- Download progress
-- Download on hosting imgur.com as an anonymous author
+- Upload progress
+- Upload on hosting imgur.com as an anonymous author
 - Selecting files via trait(`Command or Ctrl + Q`)
 - electron-updater with progress and auto check every minute
-- Vue CLI 3 + Vuetify + (vue-cli-plugin-electron-builder)[https://github.com/nklayman/vue-cli-plugin-electron-builder]
+- Vue CLI 3 + Vuetify + [vue-cli-plugin-electron-builder](https://github.com/nklayman/vue-cli-plugin-electron-builder)
 
 ## Project setup
 ```
