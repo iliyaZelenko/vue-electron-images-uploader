@@ -13,13 +13,19 @@
 - Editing before downloading
 - Upload progress
 - Upload on hosting imgur.com as an anonymous author
-- Selecting files via trait(`Command or Ctrl + Q`)
+- Selecting files via tray (`Command or Ctrl + Q`)
 - electron-updater with progress and auto check every minute
 - Vue CLI 3 + Vuetify + [vue-cli-plugin-electron-builder](https://github.com/nklayman/vue-cli-plugin-electron-builder)
+- Windows all tested
 
 ## Project setup
 ```
-yarn install
+yarn
+```
+
+or if you use NPM:
+```
+npm i
 ```
 
 ### To start a development server:
