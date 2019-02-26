@@ -1,4 +1,7 @@
 # Images Uploader
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/iliyaZelenko/vue-electron-images-uploader.svg)](https://greenkeeper.io/)
+
 <p align="center">
   <img src="https://i.imgur.com/jNWx1Us.png" width="240" height="210" style="float: left">
   <img src="https://i.imgur.com/CWb72F5.png" width="240" height="210" style="float: left">
